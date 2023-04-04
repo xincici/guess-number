@@ -1,0 +1,16 @@
+{
+  "background_color": "purple",
+  "description": "Guess Number by xincici",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "avatar.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ],
+  "name": "Guess Number Game",
+  "short_name": "GuessNumber",
+  "start_url": "/",
+  "id": "xincici-guess-number"
+}
