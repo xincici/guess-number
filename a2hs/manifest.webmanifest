@@ -4,7 +4,7 @@
   "display": "fullscreen",
   "icons": [
     {
-      "src": "avatar.png",
+      "src": "guess-png.png",
       "sizes": "196x196",
       "type": "image/png"
     }
