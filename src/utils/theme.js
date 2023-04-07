@@ -1,6 +1,6 @@
 import { ref, watchEffect } from 'vue';
 
-const STORAGE_KEY = '__easy_click_game__theme';
+const STORAGE_KEY = '__guess_number__theme';
 const themeColor = {
   dark: '#444',
   light: '#fff'

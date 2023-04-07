@@ -2,41 +2,29 @@ import { ref, watchEffect } from 'vue';
 
 const en = {
   gameTitle: 'Guess Number',
-  bestScore: 'Best Score',
   availableClicks: 'Available Clicks',
   start: 'New Game',
-  godMode: 'God Mode',
   helpTip: 'Click for help!',
-  helpMsg: `Clicking a block will increase the numbers inside the block and its upper, lower, left and right blocks (if any) by 1. When the number is 2, adding 1 to it will make it become 0. 
-Find a way to make all the numbers become 0 to win the game. If there are no more moves left and the player has not won, the game will be lost.`,
-  help1: 'Difficulty of the game is 3 ~ 10.',
-  help2: 'Every new game is guaranteed to have a feasible solution.',
-  help3: 'The initial available number of clicks in the game is the square of the current game difficulty.',
-  help4: 'God mode provides you with the optimal solution of the game and automatically completes it.',
+  helpMsg: 'You have 8 chances to guess a 4-digit number. After each time you input a 4-digit number and submit it, the game will give you a judgment on the correctness of your guess. For example, "1A2B" means that among the numbers you guessed, one number is in the correct position with the correct value, and there are two numbers that have the correct values but are not in the correct positions.',
+  help1: 'The digits of the answer will not be repeated.',
+  help2: 'Use your smart little brain.',
   confirmText: 'OK, I See',
-  newBest: 'New Best Score',
   tipWin: 'You Win',
   tipLost: 'You Lose'
 };
 const cn = {
   gameTitle: '猜数字',
-  bestScore: '最佳得分',
   availableClicks: '剩余点击',
   start: '新游戏',
-  godMode: '上帝模式',
   helpTip: '查看帮助',
-  helpMsg: `点击一个方块，方块本身和它上下左右四个方块（如果有的话），内部数字都会加 1，当数字是 2 的时候，再加 1 则变为 0。
-想办法让所有数字都变为 0 来赢得游戏。当剩余可点击次数为 0 时，如果仍然没有获胜，则游戏失败。`,
-  help1: '游戏难度 3 ~ 10',
-  help2: '每个新游戏都保证有可行解',
-  help3: '游戏的剩余点击次数是当前游戏难度的平方',
-  help4: '上帝模式给你提供该局游戏的最优解并自动完成',
+  helpMsg: `您有 8 次机会猜中一个 4 位数字，每次您输入一个 4 位数字提交之后，游戏会替您做出判断，给出此次所猜答案的正确度，如 1A2B 表示您猜的数字中，有 1 个数字的位置和数值都正确，另外有 2 个数字数值正确，但不在正确的位置上。`,
+  help1: '答案的数字不会重复',
+  help2: '动动你聪明的小脑瓜吧',
   confirmText: '好的，明白',
-  newBest: '新纪录诞生',
   tipWin: '你赢了',
   tipLost: '你输了'
 };
-const STORAGE_KEY = '__easy_click_game__language';
+const STORAGE_KEY = '__guess_number__language';
 
 const langs = { en, cn };
 
