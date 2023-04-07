@@ -206,18 +206,18 @@ function guessOnce() {
     display: inline-block;
     position: relative;
     padding: 10px;
-    margin-bottom: 150px;
+    margin-bottom: 160px;
     .answer-line {
       margin: 5px 0;
       .number-card, .result-tip {
         display: inline-block;
-        padding: 10px 15px;
-        font-size: 18px;
+        padding: 8px 18px;
+        font-size: 16px;
         font-weight: bold;
         color: #fff;
         text-align: center;
         background: rgba(0, 0, 0, 0.5);
-        margin: 3px;
+        margin: 1px 3px;
       }
       .result-tip {
         width: 80px;
@@ -247,7 +247,7 @@ function guessOnce() {
     }
   }
   .input-area {
-    max-width: 320px;
+    max-width: 360px;
     box-sizing: border-box;
     padding: 10px;
     position: fixed;
@@ -261,10 +261,10 @@ function guessOnce() {
     .number-button {
       flex: 0 0 22%;
       flex-shrink: 0;
-      height: 40px;
-      line-height: 40px;
+      height: 36px;
+      line-height: 36px;
       margin: 3px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       background: rgba(0, 0, 0, 0.5);
       color: #fff;
@@ -280,5 +280,11 @@ function guessOnce() {
   }
 }
 @media only screen and (min-width: 320px) and (max-width: 720px) {
+  .wrapper {
+    .input-area {
+      width: 100%;
+      max-width: inherit;
+    }
+  }
 }
 </style>
