@@ -10,7 +10,9 @@ const en = {
   help2: 'Use your smart little brain.',
   confirmText: 'OK, I See',
   tipWin: 'You Win',
-  tipLost: 'You Lose'
+  tipLost: 'You Lose',
+  optEnter: 'Enter',
+  optDel: 'Delete',
 };
 const cn = {
   gameTitle: '猜数字',
@@ -22,7 +24,9 @@ const cn = {
   help2: '动动你聪明的小脑瓜吧',
   confirmText: '好的，明白',
   tipWin: '你赢了',
-  tipLost: '你输了'
+  tipLost: '你输了',
+  optEnter: '提交',
+  optDel: '退格',
 };
 const STORAGE_KEY = '__guess_number__language';
 

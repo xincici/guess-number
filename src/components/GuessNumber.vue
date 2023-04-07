@@ -49,19 +49,19 @@
         v-for="num in numbers"
         :key="num"
         class="number-button"
-        :disabled="currentGuess.includes(num) || currentGuess.length >= gameSize"
+        :disabled="currentGuess.includes(num) || currentGuess.length >= gameSize || gameResult !== GAMING"
         @click="addNumber(num)"
         >{{ num }}</button>
       <button
         class="number-button opt-button"
         @click="guessOnce"
-        :disabled="currentGuess.length !== gameSize"
-      >Enter</button>
+        :disabled="currentGuess.length !== gameSize || gameResult !== GAMING"
+      >{{ i18n('optEnter') }}</button>
       <button
         class="number-button opt-button"
         @click="delNumber"
-        :disabled="currentGuess.length === 0"
-      >Delete</button>
+        :disabled="currentGuess.length === 0 || gameResult !== GAMING"
+      >{{ i18n('optDel') }}</button>
     </div>
   </div>
 </template>
@@ -113,8 +113,9 @@ onMounted(() => {
 
 function initGame() {
   anwser.value = sampleSize(numbers, gameSize.value);
-  gameResult.value = GAMING;
   guessHistory.value.length = 0;
+  currentGuess.value = '';
+  gameResult.value = GAMING;
 }
 onMounted(() => {
   initGame();
@@ -249,7 +250,7 @@ function guessOnce() {
   .input-area {
     max-width: 360px;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 10px 10px 18px;
     position: fixed;
     left: 50%;
     bottom: 0;
