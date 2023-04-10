@@ -122,18 +122,30 @@ function initGame() {
   currentGuess.value = '';
   gameResult.value = GAMING;
 }
+function addListener() {
+  document.body.addEventListener('keyup', e => {
+    const num = e.key;
+    if (num === 'Enter') return guessOnce();
+    if (num === 'Backspace') return delNumber();
+    if (numbers.includes(+num)) return addNumber(+num);
+  });
+}
 onMounted(() => {
   initGame();
+  addListener();
 });
 
 function addNumber(num) {
+  if (currentGuess.value.includes(num)) return;
   currentGuess.value += num;
 }
 function delNumber() {
+  if (currentGuess.value.length === 0) return;
   currentGuess.value = currentGuess.value.slice(0, -1);
 }
 
 function guessOnce() {
+  if (currentGuess.value.length !== gameSize.value) return;
   let [A, B] = [0, 0];
   for (let i = 0; i < gameSize.value; i++) {
     let one = +currentGuess.value[i];
