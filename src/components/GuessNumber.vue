@@ -36,13 +36,18 @@
           v-for="n in gameSize"
           :key="n"
           class="number-card"
+          :class="n - 1 === currentGuess.length ? 'current-input' : ''"
         >{{ currentGuess[n - 1] || '&nbsp;&nbsp;' }}</span>
         <span class="result-tip">_A_B</span>
       </p>
       <div v-if="gameResult >= WIN" class="win">
         <span>🎉🎉 {{ i18n('tipWin') }} 🎉🎉</span>
       </div>
-      <div v-if="gameResult === LOSE" class="lose">👻👻 {{ i18n('tipLost') }} 👻👻</div>
+      <div v-if="gameResult === LOSE" class="lose">
+        👻👻 {{ i18n('tipLost') }} 👻👻
+        <br />
+        {{ i18n('anwserIs') + anwser.join('') }}
+      </div>
     </div>
     <div class="input-area">
       <button
@@ -211,6 +216,7 @@ function guessOnce() {
     .answer-line {
       margin: 5px 0;
       .number-card, .result-tip {
+        position: relative;
         display: inline-block;
         padding: 8px 18px;
         font-size: 16px;
@@ -219,6 +225,15 @@ function guessOnce() {
         text-align: center;
         background: rgba(0, 0, 0, 0.5);
         margin: 1px 3px;
+        &.current-input:after {
+          content: " ";
+          position: absolute;
+          background: rgba(200, 200, 200, 0.5);
+          width: 40%;
+          height: 2px;
+          left: 30%;
+          bottom: 20%;
+        }
       }
       .result-tip {
         width: 80px;

@@ -1,9 +1,9 @@
 
-const cacheName = 'guess-number-v4';
+const cacheName = 'guess-number-v5';
 const cacheFileList = [
   '/index.html',
   '/favicon.ico',
-  '/a2hs/guess-png.png',
+  '/a2hs/1a2b.png',
   '/a2hs/manifest.webmanifest',
 ];
 
