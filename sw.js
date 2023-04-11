@@ -1,5 +1,4 @@
-
-const cacheName = 'guess-number-v7';
+const cacheName = 'guess-number-v7'; // DO NOT EDIT OR MOVE THIS LINE
 const cacheFileList = [
   '/index.html',
   '/favicon.ico',

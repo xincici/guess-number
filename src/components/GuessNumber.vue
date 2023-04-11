@@ -13,6 +13,7 @@
     <audio :src="audio" ref="audioRef" loop="true"></audio>
     <p>
       <button @click="initGame" class="game-icon">{{ i18n('start') }}</button>
+      <CountTimer ref="timerRef" />
     </p>
     <div class="game-area">
       <p v-show="isDebug">anwser: {{ anwser.join(' ') }}</p>
@@ -78,6 +79,7 @@ import Toggle from '@vueform/toggle';
 import '@vueform/toggle/themes/default.css';
 import audio from '../assets/yzcw.mp3';
 import HelpDialog from './HelpDialog.vue';
+import CountTimer from './CountTimer.vue';
 import { language } from '../plugins/i18n';
 import { theme } from '../utils/theme';
 
@@ -100,11 +102,17 @@ watch(helpShow, val => {
 const audioRef = ref(null);
 const audioPlay = ref(false);
 
+const timerRef = ref(null);
+
 const isDebug = ref(location.search.includes('debug'));
 const anwser = ref([]);
 const gameSize = ref(4);
 const maxGuess = computed(() => gameSize.value << 1);
 const gameResult = ref(GAMING);
+
+watch(gameResult, val => {
+  if (val !== GAMING) timerRef.value.stop();
+});
 
 const guessHistory = ref([]);
 const currentGuess = ref('');
@@ -121,6 +129,7 @@ function initGame() {
   guessHistory.value.length = 0;
   currentGuess.value = '';
   gameResult.value = GAMING;
+  timerRef.value.start();
 }
 function addListener() {
   document.body.addEventListener('keyup', e => {
