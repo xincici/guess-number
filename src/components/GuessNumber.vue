@@ -129,7 +129,7 @@ function initGame() {
   guessHistory.value.length = 0;
   currentGuess.value = '';
   gameResult.value = GAMING;
-  timerRef.value.start();
+  timerRef.value.reset();
 }
 function addListener() {
   document.body.addEventListener('keyup', e => {

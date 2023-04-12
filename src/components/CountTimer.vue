@@ -3,35 +3,53 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 const time = ref(0);
-const begin = ref(0);
 let intervalTimer = null;
 
 const timeStr = computed(() => {
-  const sec = Math.round((time.value - begin.value) / 1000);
+  const sec = time.value;
   return ('00' + ~~(sec / 60)).slice(-2) + ':' + ('00' + sec % 60).slice(-2);
 });
 
-function start() {
-  time.value = begin.value = Date.now();
+function reset() {
   stop();
-  intervalTimer = setInterval(() => {
-    time.value = Date.now();
-  }, 1000);
+  time.value = 0;
+  start();
 }
 
 function stop() {
   if (intervalTimer) clearInterval(intervalTimer);
+  intervalTimer = null;
+}
+
+function start() {
+  intervalTimer = setInterval(() => {
+    time.value += 1;
+  }, 1000);
+}
+
+function onListener(isAdd) {
+  document[isAdd ? 'addEventListener' : 'removeEventListener']('visibilitychange', listenerFn);
+}
+
+function listenerFn() {
+  if (document.hidden) stop();
+  else start();
 }
 
 onMounted(() => {
+  onListener(true);
   start();
 });
 
+onUnmounted(() => {
+  onListener(false);
+});
+
 defineExpose({
-  start,
+  reset,
   stop
 });
 
