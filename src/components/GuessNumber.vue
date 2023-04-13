@@ -1,19 +1,13 @@
 <template>
   <div class="wrapper" :class="theme">
-    <p class="toggle-wrapper">
-      <Toggle v-model="audioPlay" trueValue="play" falseValue="pause" onLabel="🔊" offLabel="🔇" class="mr20" />
-      <Toggle v-model="theme" trueValue="dark" falseValue="light" onLabel="🌙" offLabel="🌝" class="theme-toggle mr20" />
-      <Toggle v-model="language" trueValue="en" falseValue="cn" onLabel="EN" offLabel="中文" />
-    </p>
+    <TopHeader />
     <h2>
       <span class="title">{{ i18n('gameTitle') }}</span>
-      <span class="help" :title="i18n('helpTip')" @click="helpShow = true"><font-awesome-icon icon="fa-solid fa-circle-question" /></span>
+      <HelpDialog />
     </h2>
-    <HelpDialog :help-show="helpShow" @hideHelp="helpShow = false" />
-    <audio :src="audio" ref="audioRef" loop="true"></audio>
     <p>
       <button @click="initGame" class="game-icon">{{ i18n('start') }}</button>
-      <CountTimer ref="timerRef" />
+      <CountTimer ref="timerRef" :enable="gameResult === GAMING" />
     </p>
     <div class="game-area">
       <p v-show="isDebug">anwser: {{ anwser.join(' ') }}</p>
@@ -75,32 +69,14 @@
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue';
 import sampleSize from 'lodash.samplesize';
-import Toggle from '@vueform/toggle';
-import '@vueform/toggle/themes/default.css';
-import audio from '../assets/yzcw.mp3';
+
+import TopHeader from './TopHeader.vue';
 import HelpDialog from './HelpDialog.vue';
 import CountTimer from './CountTimer.vue';
-import { language } from '../plugins/i18n';
 import { theme } from '../utils/theme';
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
 const [GAMING, LOSE, WIN] = [0, 1, 2];
-
-const metaThemeColorEl = document.querySelector('meta[name="theme-color"]');
-let lastColor = metaThemeColorEl.getAttribute('content');
-
-const helpShow = ref(false);
-watch(helpShow, val => {
-  if (val) {
-    lastColor = metaThemeColorEl.getAttribute('content');
-    metaThemeColorEl.setAttribute('content', 'rgba(0,0,0,0.85)');
-  } else {
-    metaThemeColorEl.setAttribute('content', lastColor);
-  }
-});
-
-const audioRef = ref(null);
-const audioPlay = ref(false);
 
 const timerRef = ref(null);
 
@@ -118,10 +94,8 @@ const guessHistory = ref([]);
 const currentGuess = ref('');
 
 onMounted(() => {
-  watch(audioPlay, val => {
-    if (val === 'play') audioRef.value.play();
-    else audioRef.value.pause();
-  });
+  initGame();
+  addListener();
 });
 
 function initGame() {
@@ -139,11 +113,6 @@ function addListener() {
     if (numbers.includes(+num)) return addNumber(+num);
   });
 }
-onMounted(() => {
-  initGame();
-  addListener();
-});
-
 function addNumber(num) {
   if (currentGuess.value.includes(num)) return;
   currentGuess.value += num;
@@ -152,7 +121,6 @@ function delNumber() {
   if (currentGuess.value.length === 0) return;
   currentGuess.value = currentGuess.value.slice(0, -1);
 }
-
 function guessOnce() {
   if (currentGuess.value.length !== gameSize.value) return;
   let [A, B] = [0, 0];
@@ -198,26 +166,9 @@ function guessOnce() {
   button,button:disabled {
     touch-action: manipulation;
   }
-  .mr20 {
-    margin-right: 20px;
-  }
-  .theme-toggle :deep(.toggle-on) {
-    background: #222;
-    border-color: #222;
-  }
-  .toggle-wrapper {
-    margin: 0 5%;
-    text-align: right;
-  }
-  .title,.help {
+  .title {
     vertical-align: middle;
     display: inline-block;
-  }
-  .help {
-    cursor: pointer;
-    font-size: 20px;
-    color: #c33;
-    margin-left: 10px;
   }
   .game-icon {
     cursor: pointer;

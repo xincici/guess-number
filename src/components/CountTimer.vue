@@ -5,6 +5,13 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 
+defineExpose({
+  reset,
+  stop
+});
+
+const props = defineProps(['enable']);
+
 const time = ref(0);
 let intervalTimer = null;
 
@@ -13,46 +20,36 @@ const timeStr = computed(() => {
   return ('00' + ~~(sec / 60)).slice(-2) + ':' + ('00' + sec % 60).slice(-2);
 });
 
+onMounted(() => {
+  onListener('add');
+  start();
+});
+
+onUnmounted(() => {
+  onListener('remove');
+});
+
 function reset() {
   stop();
   time.value = 0;
   start();
 }
-
 function stop() {
   if (intervalTimer) clearInterval(intervalTimer);
   intervalTimer = null;
 }
-
 function start() {
   intervalTimer = setInterval(() => {
     time.value += 1;
   }, 1000);
 }
-
-function onListener(isAdd) {
-  document[isAdd ? 'addEventListener' : 'removeEventListener']('visibilitychange', listenerFn);
+function onListener(opt) {
+  document[`${opt}EventListener`]('visibilitychange', listenerFn);
 }
-
 function listenerFn() {
   if (document.hidden) stop();
-  else start();
+  else if (props.enable) start();
 }
-
-onMounted(() => {
-  onListener(true);
-  start();
-});
-
-onUnmounted(() => {
-  onListener(false);
-});
-
-defineExpose({
-  reset,
-  stop
-});
-
 </script>
 
 <style scoped lang="scss">
