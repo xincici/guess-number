@@ -173,18 +173,19 @@ function guessOnce() {
   .game-icon {
     cursor: pointer;
     width: 125px;
-    padding: 10px 20px;
+    height: 36px;
+    line-height: 36px;
     color: #fff;
     font-weight: bold;
     text-align: center;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(60, 160, 60, 0.9);
     border: 0 none;
   }
   .game-area {
     display: inline-block;
     position: relative;
     padding: 10px;
-    margin-bottom: 160px;
+    margin-bottom: 185px;
     .answer-line {
       margin: 5px 0;
       .number-card, .result-tip {
@@ -237,7 +238,7 @@ function guessOnce() {
   .input-area {
     max-width: 360px;
     box-sizing: border-box;
-    padding: 10px 10px 18px;
+    padding: 10px 10px 22px;
     position: fixed;
     left: 50%;
     bottom: 0;
@@ -249,10 +250,9 @@ function guessOnce() {
     .number-button {
       flex: 0 0 22%;
       flex-shrink: 0;
-      height: 36px;
-      line-height: 36px;
+      height: 44px;
       margin: 3px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
       background: rgba(0, 0, 0, 0.5);
       color: #fff;
