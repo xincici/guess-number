@@ -5,13 +5,13 @@
       <span class="title">{{ i18n('gameTitle') }}</span>
       <HelpDialog />
     </h2>
-    <p>
+    <div class="opt-area">
       <button @click="initGame" class="game-icon">{{ i18n('start') }}</button>
       <CountTimer ref="timerRef" :enable="gameResult === GAMING" />
-    </p>
+    </div>
     <div class="game-area">
       <p v-show="isDebug">anwser: {{ anwser.join(' ') }}</p>
-      <p
+      <div
         v-for="(oneGuess, idx) in guessHistory"
         :key="idx"
         class="answer-line"
@@ -22,8 +22,8 @@
           class="number-card"
           >{{ number }}</span>
         <span class="result-tip">{{ oneGuess.res }}</span>
-      </p>
-      <p
+      </div>
+      <div
         v-if="gameResult === GAMING"
         class="answer-line"
       >
@@ -34,7 +34,7 @@
           :class="n - 1 === currentGuess.length ? 'current-input' : ''"
         >{{ currentGuess[n - 1] || '&nbsp;&nbsp;' }}</span>
         <span class="result-tip">_A_B</span>
-      </p>
+      </div>
       <div v-if="gameResult >= WIN" class="win">
         <span>🎉🎉 {{ i18n('tipWin') }} 🎉🎉</span>
       </div>
@@ -151,7 +151,6 @@ function guessOnce() {
   width: 100vw;
   min-width: 360px;
   min-height: 100vh;
-  padding: 40px 0;
   box-sizing: border-box;
   color: #2c3e50;
   &.dark {
@@ -180,6 +179,9 @@ function guessOnce() {
     text-align: center;
     background: rgba(60, 160, 60, 0.9);
     border: 0 none;
+  }
+  .opt-area {
+    margin: 10px 0;
   }
   .game-area {
     display: inline-block;
