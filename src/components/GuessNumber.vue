@@ -178,7 +178,7 @@ function guessOnce() {
     border: 0 none;
   }
   .opt-area {
-    margin: 10px 0;
+    margin: 40px 0 10px;
   }
   .game-area {
     display: inline-block;
