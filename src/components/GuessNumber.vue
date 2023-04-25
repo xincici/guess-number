@@ -1,10 +1,6 @@
 <template>
   <div class="wrapper" :class="theme">
     <TopHeader />
-    <h2>
-      <span class="title">{{ i18n('gameTitle') }}</span>
-      <HelpDialog />
-    </h2>
     <div class="opt-area">
       <button @click="initGame" class="game-icon">{{ i18n('start') }}</button>
       <CountTimer ref="timerRef" :enable="gameResult === GAMING" />
@@ -71,7 +67,6 @@ import { ref, watch, computed, onMounted } from 'vue';
 import sampleSize from 'lodash.samplesize';
 
 import TopHeader from './TopHeader.vue';
-import HelpDialog from './HelpDialog.vue';
 import CountTimer from './CountTimer.vue';
 import { theme } from '../utils/theme';
 
@@ -156,18 +151,20 @@ function guessOnce() {
   &.dark {
     background: #444;
     color: #eee;
+    .header-wrapper {
+      border-bottom: 1px solid #333;
+    }
     .game-area {
       .win,.lose {
         background-color: #333;
       }
     }
   }
+  .header-wrapper {
+    border-bottom: 1px solid #eee;
+  }
   button,button:disabled {
     touch-action: manipulation;
-  }
-  .title {
-    vertical-align: middle;
-    display: inline-block;
   }
   .game-icon {
     cursor: pointer;
@@ -238,7 +235,7 @@ function guessOnce() {
     }
   }
   .input-area {
-    max-width: 360px;
+    max-width: 420px;
     box-sizing: border-box;
     padding: 10px 10px 22px;
     position: fixed;
@@ -250,8 +247,7 @@ function guessOnce() {
     justify-content: space-between;
     background: rgba(200, 200, 200, 1);
     .number-button {
-      flex: 0 0 22%;
-      flex-shrink: 0;
+      flex: 0 0 23%;
       height: 44px;
       margin: 3px;
       font-size: 18px;

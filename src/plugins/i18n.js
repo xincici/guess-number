@@ -36,6 +36,10 @@ const langs = { en, cn };
 
 export const language = ref(localStorage.getItem(STORAGE_KEY) || 'en');
 
+export const toggle = () => {
+  language.value = language.value === 'cn' ? 'en' : 'cn';
+};
+
 watchEffect(() => {
   document.title = langs[language.value]['gameTitle'];
   localStorage.setItem(STORAGE_KEY, language.value);
