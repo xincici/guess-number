@@ -1,6 +1,6 @@
 <template>
   <span class="help" :title="i18n('helpTip')" @click="helpShow = true">
-    <i pointer class="i-carbon-help text-inherit" />
+    <i pointer i-carbon-help text-inherit />
   </span>
   <Teleport to="body">
     <div class="help-wrapper" v-show="helpShow">
