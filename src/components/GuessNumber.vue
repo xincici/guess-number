@@ -170,8 +170,8 @@ function guessOnce() {
     cursor: pointer;
     width: 125px;
     height: 36px;
-    line-height: 36px;
     color: #fff;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
     background: rgba(60, 160, 60, 0.9);
@@ -235,7 +235,7 @@ function guessOnce() {
     }
   }
   .input-area {
-    max-width: 420px;
+    width: 600px;
     box-sizing: border-box;
     padding: 10px 10px 22px;
     position: fixed;
@@ -265,7 +265,7 @@ function guessOnce() {
     }
   }
 }
-@media only screen and (min-width: 320px) and (max-width: 720px) {
+@media only screen and (max-width: 720px) {
   .wrapper {
     .input-area {
       width: 100%;
