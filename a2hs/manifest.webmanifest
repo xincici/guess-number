@@ -1,7 +1,8 @@
 {
   "background_color": "purple",
   "description": "Guess Number by xincici",
-  "display": "fullscreen",
+  "display": "standalone",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "1a2b.png",
