@@ -64,11 +64,14 @@
 
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue';
+import JSConfetti from 'js-confetti';
 import sampleSize from 'lodash.samplesize';
 
 import TopHeader from './TopHeader.vue';
 import CountTimer from './CountTimer.vue';
 import { theme } from '../utils/theme';
+
+const jsConfetti = new JSConfetti();
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
 const [GAMING, LOSE, WIN] = [0, 1, 2];
@@ -83,6 +86,7 @@ const gameResult = ref(GAMING);
 
 watch(gameResult, val => {
   if (val !== GAMING) timerRef.value.stop();
+  if (val === WIN) jsConfetti.addConfetti();
 });
 
 const guessHistory = ref([]);
