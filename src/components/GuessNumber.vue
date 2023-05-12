@@ -2,7 +2,7 @@
   <div class="wrapper" :class="theme">
     <TopHeader />
     <div class="opt-area">
-      <button @click="initGame" class="game-icon">{{ i18n('start') }}</button>
+      <button ref="initRef" @click="initGame" class="game-icon">{{ i18n('start') }}</button>
       <CountTimer ref="timerRef" :enable="gameResult === GAMING" />
     </div>
     <div class="game-area">
@@ -75,6 +75,7 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
 const [GAMING, LOSE, WIN] = [0, 1, 2];
 
 const timerRef = ref(null);
+const initRef = ref(null);
 
 const isDebug = ref(location.search.includes('debug'));
 const anwser = ref([]);
@@ -101,6 +102,7 @@ function initGame() {
   currentGuess.value = '';
   gameResult.value = GAMING;
   timerRef.value.reset();
+  initRef.value.blur();
 }
 function addListener() {
   document.body.addEventListener('keyup', e => {
