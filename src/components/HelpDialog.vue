@@ -28,19 +28,23 @@
 <script setup>
 import { ref, watch } from 'vue';
 
-const helpShow = ref(false);
+const STORAGE_KEY = '__guess_number__help_showed';
 
 const metaThemeColorEl = document.querySelector('meta[name="theme-color"]');
 let lastColor = metaThemeColorEl.getAttribute('content');
 
+const helpShow = ref(Boolean(!localStorage.getItem(STORAGE_KEY)));
+
 watch(helpShow, val => {
   if (val) {
+    localStorage.setItem(STORAGE_KEY, 1);
     lastColor = metaThemeColorEl.getAttribute('content');
     metaThemeColorEl.setAttribute('content', 'rgba(0,0,0,0.85)');
   } else {
     metaThemeColorEl.setAttribute('content', lastColor);
   }
-});
+}, { immediate: true });
+
 </script>
 
 <style scoped lang="scss">
