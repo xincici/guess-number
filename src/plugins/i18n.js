@@ -34,7 +34,7 @@ const STORAGE_KEY = '__guess_number__language';
 
 const langs = { en, cn };
 
-export const language = ref(localStorage.getItem(STORAGE_KEY) || 'en');
+export const language = ref(localStorage.getItem(STORAGE_KEY) || 'cn');
 
 export const toggle = () => {
   language.value = language.value === 'cn' ? 'en' : 'cn';
