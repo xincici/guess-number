@@ -256,7 +256,7 @@ function guessOnce() {
       margin: 3px;
       font-size: 18px;
       font-weight: bold;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       color: #fff;
       border: 0 none;
       cursor: pointer;
