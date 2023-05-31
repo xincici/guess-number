@@ -180,6 +180,7 @@ function guessOnce() {
     text-align: center;
     background: rgba(60, 160, 60, 0.9);
     border: 0 none;
+    border-radius: 6px;
   }
   .opt-area {
     margin: 40px 0 10px;
@@ -201,6 +202,7 @@ function guessOnce() {
         text-align: center;
         background: rgba(0, 0, 0, 0.5);
         margin: 1px 3px;
+        border-radius: 4px;
         &.current-input:after {
           content: " ";
           position: absolute;
@@ -259,6 +261,7 @@ function guessOnce() {
       background: rgba(0, 0, 0, 0.7);
       color: #fff;
       border: 0 none;
+      border-radius: 6px;
       cursor: pointer;
       &:disabled {
         background: rgba(0, 0, 0, 0.3);
