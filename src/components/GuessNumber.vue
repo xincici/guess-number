@@ -40,7 +40,7 @@
         {{ i18n('anwserIs') + anwser.join('') }}
       </div>
     </div>
-    <div class="input-area">
+    <div class="input-area" :class="{ hide: gameResult !== GAMING }">
       <button
         v-for="num in numbers"
         :key="num"
@@ -245,16 +245,21 @@ function guessOnce() {
   }
   .input-area {
     width: 600px;
+    height: auto;
     box-sizing: border-box;
     padding: 10px 10px 22px;
     position: fixed;
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
+    transition: bottom 0.3s ease-in-out;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     background: #fff;
+    &.hide {
+      bottom: -100%;
+    }
     .number-button {
       flex: 0 0 23%;
       height: 44px;
