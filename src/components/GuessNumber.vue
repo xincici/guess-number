@@ -264,6 +264,7 @@ function guessOnce() {
       cursor: pointer;
       &:disabled {
         background: rgba(0, 0, 0, 0.3);
+        color: #aaa;
       }
       &.opt-button {
         flex-grow: 1;
