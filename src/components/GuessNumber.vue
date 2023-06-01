@@ -200,7 +200,7 @@ function guessOnce() {
         font-weight: bold;
         color: #fff;
         text-align: center;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.6);
         margin: 1px 3px;
         border-radius: 4px;
         &.current-input:after {
@@ -217,7 +217,7 @@ function guessOnce() {
         width: 80px;
         padding: 0;
         vertical-align: bottom;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.75);
       }
     }
     .win,.lose {
@@ -251,14 +251,13 @@ function guessOnce() {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background: rgba(200, 200, 200, 1);
     .number-button {
       flex: 0 0 23%;
       height: 44px;
       margin: 3px;
       font-size: 18px;
       font-weight: bold;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       color: #fff;
       border: 0 none;
       border-radius: 6px;
