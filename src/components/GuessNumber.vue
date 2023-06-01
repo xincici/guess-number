@@ -163,6 +163,9 @@ function guessOnce() {
         background-color: #333;
       }
     }
+    .input-area {
+      background: #444;
+    }
   }
   .header-wrapper {
     border-bottom: 1px solid #eee;
@@ -251,6 +254,7 @@ function guessOnce() {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    background: #fff;
     .number-button {
       flex: 0 0 23%;
       height: 44px;
