@@ -252,7 +252,7 @@ function guessOnce() {
     left: 50%;
     bottom: 0;
     transform: translateX(-50%);
-    transition: bottom 0.3s ease-in-out;
+    transition: bottom 0.5s ease-in-out;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -262,7 +262,7 @@ function guessOnce() {
     }
     .number-button {
       flex: 0 0 23%;
-      height: 44px;
+      height: 46px;
       margin: 3px;
       font-size: 18px;
       font-weight: bold;
