@@ -68,6 +68,7 @@ import sampleSize from 'lodash.samplesize';
 
 import TopHeader from './TopHeader.vue';
 import CountTimer from './CountTimer.vue';
+import { robot } from '../utils/robot';
 import { theme } from '../utils/theme';
 import confetti from '../utils/confetti';
 
@@ -103,6 +104,11 @@ function initGame() {
   gameResult.value = GAMING;
   timerRef.value.reset();
   initRef.value.blur();
+  if (robot.value) {
+    let idx = 1;
+    currentGuess.value = Array.from({ length: gameSize.value }, () => idx++).join('');
+    guessOnce();
+  }
 }
 function addListener() {
   document.body.addEventListener('keyup', e => {
