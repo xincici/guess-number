@@ -135,6 +135,7 @@ function addNumber(num) {
   currentGuess.value += num;
 }
 function delNumber() {
+  if (firstGuessTimer.value) return;
   if (currentGuess.value.length === 0) return;
   currentGuess.value = currentGuess.value.slice(0, -1);
 }
