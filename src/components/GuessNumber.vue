@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import sampleSize from 'lodash.samplesize';
 
 import TopHeader from './TopHeader.vue';
@@ -84,13 +84,16 @@ const isDebug = ref(location.search.includes('debug'));
 const anwser = ref('');
 const gameResult = ref(GAMING);
 
+const guessHistory = ref([]);
+const currentGuess = ref('');
+
+const firstGuessTimer = ref(null);
+const firstGuessDuration = 200;
+
 watch(gameResult, val => {
   if (val !== GAMING) timerRef.value.stop();
   if (val === WIN) confetti();
 });
-
-const guessHistory = ref([]);
-const currentGuess = ref('');
 
 onMounted(() => {
   initGame();
@@ -98,17 +101,25 @@ onMounted(() => {
 });
 
 function initGame() {
+  if (firstGuessTimer.value) clearTimeout(firstGuessTimer.value);
   anwser.value = sampleSize(NUMBERS, GAME_SIZE).join('');
   guessHistory.value.length = 0;
   currentGuess.value = '';
   gameResult.value = GAMING;
   timerRef.value.reset();
   initRef.value.blur();
-  if (robot.value) {
-    let idx = 1;
-    currentGuess.value = Array.from({ length: GAME_SIZE }, () => idx++).join('');
-    guessOnce();
-  }
+  if (robot.value) initWithFirstGuess(1);
+}
+function initWithFirstGuess(num) {
+  firstGuessTimer.value = setTimeout(() => {
+    currentGuess.value += String(num);
+    if (currentGuess.value.length === GAME_SIZE) {
+      firstGuessTimer.value = null;
+      guessOnce();
+      return;
+    }
+    initWithFirstGuess(num + 1);
+  }, firstGuessDuration);
 }
 function addListener() {
   document.body.addEventListener('keyup', e => {
@@ -119,6 +130,7 @@ function addListener() {
   });
 }
 function addNumber(num) {
+  if (firstGuessTimer.value) return;
   if (currentGuess.value.includes(num)) return;
   currentGuess.value += num;
 }
