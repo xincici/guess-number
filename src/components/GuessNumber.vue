@@ -6,7 +6,7 @@
       <CountTimer ref="timerRef" :enable="gameResult === GAMING" />
     </div>
     <div class="game-area">
-      <p v-show="isDebug">anwser: {{ anwser.join(' ') }}</p>
+      <p v-show="isDebug">anwser: {{ anwser }}</p>
       <div
         v-for="(oneGuess, idx) in guessHistory"
         :key="idx"
@@ -24,7 +24,7 @@
         class="answer-line"
       >
         <span
-          v-for="n in gameSize"
+          v-for="n in GAME_SIZE"
           :key="n"
           class="number-card"
           :class="n - 1 === currentGuess.length ? 'current-input' : ''"
@@ -37,21 +37,21 @@
       <div v-if="gameResult === LOSE" class="lose">
         👻👻 {{ i18n('tipLost') }} 👻👻
         <br />
-        {{ i18n('anwserIs') + anwser.join('') }}
+        {{ i18n('anwserIs') + anwser }}
       </div>
     </div>
     <div class="input-area" :class="{ hide: gameResult !== GAMING }">
       <button
-        v-for="num in numbers"
+        v-for="num in NUMBERS"
         :key="num"
         class="number-button"
-        :disabled="currentGuess.includes(num) || currentGuess.length >= gameSize || gameResult !== GAMING"
+        :disabled="currentGuess.includes(num) || currentGuess.length >= GAME_SIZE || gameResult !== GAMING"
         @click="addNumber(num)"
         >{{ num }}</button>
       <button
         class="number-button opt-button"
         @click="guessOnce"
-        :disabled="currentGuess.length !== gameSize || gameResult !== GAMING"
+        :disabled="currentGuess.length !== GAME_SIZE || gameResult !== GAMING"
       >{{ i18n('optEnter') }}</button>
       <button
         class="number-button opt-button"
@@ -68,20 +68,20 @@ import sampleSize from 'lodash.samplesize';
 
 import TopHeader from './TopHeader.vue';
 import CountTimer from './CountTimer.vue';
-import { robot } from '../utils/robot';
-import { theme } from '../utils/theme';
-import confetti from '../utils/confetti';
+import { robot } from '../utils/robot.js';
+import { theme } from '../utils/theme.js';
+import confetti from '../utils/confetti.js';
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
 const [GAMING, LOSE, WIN] = [0, 1, 2];
+const GAME_SIZE = 4; // it is always a 4 digits number
+const MAX_GUESS = 8; // the maximun number of guess
 
 const timerRef = ref(null);
 const initRef = ref(null);
 
 const isDebug = ref(location.search.includes('debug'));
-const anwser = ref([]);
-const gameSize = ref(4);
-const maxGuess = computed(() => gameSize.value << 1);
+const anwser = ref('');
 const gameResult = ref(GAMING);
 
 watch(gameResult, val => {
@@ -98,7 +98,7 @@ onMounted(() => {
 });
 
 function initGame() {
-  anwser.value = sampleSize(numbers, gameSize.value);
+  anwser.value = sampleSize(NUMBERS, GAME_SIZE).join('');
   guessHistory.value.length = 0;
   currentGuess.value = '';
   gameResult.value = GAMING;
@@ -106,7 +106,7 @@ function initGame() {
   initRef.value.blur();
   if (robot.value) {
     let idx = 1;
-    currentGuess.value = Array.from({ length: gameSize.value }, () => idx++).join('');
+    currentGuess.value = Array.from({ length: GAME_SIZE }, () => idx++).join('');
     guessOnce();
   }
 }
@@ -115,7 +115,7 @@ function addListener() {
     const num = e.key;
     if (num === 'Enter') return guessOnce();
     if (num === 'Backspace') return delNumber();
-    if (numbers.includes(+num)) return addNumber(+num);
+    if (NUMBERS.includes(+num)) return addNumber(+num);
   });
 }
 function addNumber(num) {
@@ -127,10 +127,10 @@ function delNumber() {
   currentGuess.value = currentGuess.value.slice(0, -1);
 }
 function guessOnce() {
-  if (currentGuess.value.length !== gameSize.value) return;
+  if (currentGuess.value.length !== GAME_SIZE) return;
   let [A, B] = [0, 0];
-  for (let i = 0; i < gameSize.value; i++) {
-    let one = +currentGuess.value[i];
+  for (let i = 0; i < GAME_SIZE; i++) {
+    let one = currentGuess.value[i];
     const idx = anwser.value.indexOf(one);
     if (idx === i) A++;
     else if (idx >= 0) B++;
@@ -139,12 +139,12 @@ function guessOnce() {
     nums: currentGuess.value.split('').map(v => +v),
     res: `${A}A${B}B`
   });
-  if (A === gameSize.value) {
+  if (A === GAME_SIZE) {
     gameResult.value = WIN;
     currentGuess.value = '';
     return;
   }
-  if (guessHistory.value.length >= maxGuess.value) {
+  if (guessHistory.value.length >= MAX_GUESS) {
     gameResult.value = LOSE;
   }
   currentGuess.value = '';
