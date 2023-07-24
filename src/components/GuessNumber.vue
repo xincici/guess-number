@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :class="theme">
+  <div class="wrapper">
     <TopHeader />
     <div class="opt-area">
       <button ref="initRef" @click="initGame" class="game-icon">{{ i18n('start') }}</button>
@@ -69,7 +69,6 @@ import sampleSize from 'lodash.samplesize';
 import TopHeader from './TopHeader.vue';
 import CountTimer from './CountTimer.vue';
 import { robot } from '../utils/robot.js';
-import { theme } from '../utils/theme.js';
 import confetti from '../utils/confetti.js';
 
 const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -170,24 +169,10 @@ function guessOnce() {
   min-width: 360px;
   min-height: 100vh;
   box-sizing: border-box;
-  color: #2c3e50;
-  &.dark {
-    background: #444;
-    color: #eee;
-    .header-wrapper {
-      border-bottom: 1px solid #333;
-    }
-    .game-area {
-      .win,.lose {
-        background-color: #333;
-      }
-    }
-    .input-area {
-      background: #444;
-    }
-  }
+  background: var(--bg-color);
+  color: var(--text-color);
   .header-wrapper {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
   }
   button,button:disabled {
     touch-action: manipulation;
@@ -243,7 +228,7 @@ function guessOnce() {
       }
     }
     .win,.lose {
-      background-color: #f1f1f1;
+      background: var(--bg-color);
       position: absolute;
       width: 100%;
       height: 100%;
@@ -257,6 +242,9 @@ function guessOnce() {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+    .win {
+      background: var(--win-bg-color);
     }
     .lose {
       color: #aa1111;
@@ -275,7 +263,7 @@ function guessOnce() {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background: #fff;
+    background: var(--bg-color);
     &.hide {
       bottom: -100%;
     }
