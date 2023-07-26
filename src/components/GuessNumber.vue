@@ -234,20 +234,17 @@ function guessOnce() {
       height: 100%;
       left: 0;
       top: 0;
-      opacity: 0.95;
+      opacity: 0.85;
       font-weight: bold;
-      color: #11aa11;
+      color: #1b1;
       font-size: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
-    .win {
-      background: var(--win-bg-color);
-    }
     .lose {
-      color: #aa1111;
+      color: #b11;
     }
   }
   .input-area {

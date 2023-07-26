@@ -20,12 +20,10 @@ body {
   --border-color: #eee;
   --text-color: #2c3e50;
   --bg-color: #fff;
-  --win-bg-color: #f1f1f1;
   &.dark {
     --border-color: #444;
     --text-color: #eee;
     --bg-color: #333;
-    --win-bg-color: #333;
   }
 }
 </style>
