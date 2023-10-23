@@ -171,9 +171,6 @@ function guessOnce() {
   box-sizing: border-box;
   background: var(--bg-color);
   color: var(--text-color);
-  .header-wrapper {
-    border-bottom: 1px solid var(--border-color);
-  }
   button,button:disabled {
     touch-action: manipulation;
   }
@@ -190,7 +187,7 @@ function guessOnce() {
     border-radius: 6px;
   }
   .opt-area {
-    margin: 40px 0 10px;
+    padding: 90px 0 10px;
   }
   .game-area {
     display: inline-block;

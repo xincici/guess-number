@@ -7,8 +7,10 @@ import GuessNumber from './components/GuessNumber.vue';
 </script>
 
 <style lang="scss">
-body {
+html, body, #app {
+  height: 100vh;
   margin: 0;
+  touch-action: manipulation;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
