@@ -72,6 +72,7 @@ watch(helpShow, val => {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
   .help-inner {
     text-align: left;
     width: 720px;
