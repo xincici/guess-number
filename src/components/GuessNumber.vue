@@ -86,7 +86,7 @@ const gameResult = ref(GAMING);
 const guessHistory = ref([]);
 const currentGuess = ref('');
 
-const firstGuessTimer = ref(null);
+let firstGuessTimer = null;
 const firstGuessDuration = 200;
 
 watch(gameResult, val => {
@@ -100,7 +100,10 @@ onMounted(() => {
 });
 
 function initGame() {
-  if (firstGuessTimer.value) clearTimeout(firstGuessTimer.value);
+  if (firstGuessTimer) {
+    clearTimeout(firstGuessTimer);
+    firstGuessTimer = null;
+  }
   anwser.value = sampleSize(NUMBERS, GAME_SIZE).join('');
   guessHistory.value.length = 0;
   currentGuess.value = '';
@@ -110,10 +113,10 @@ function initGame() {
   if (robot.value) initWithFirstGuess(1);
 }
 function initWithFirstGuess(num) {
-  firstGuessTimer.value = setTimeout(() => {
+  firstGuessTimer = setTimeout(() => {
     currentGuess.value += String(num);
     if (currentGuess.value.length === GAME_SIZE) {
-      firstGuessTimer.value = null;
+      firstGuessTimer = null;
       guessOnce();
       return;
     }
@@ -129,12 +132,12 @@ function addListener() {
   });
 }
 function addNumber(num) {
-  if (firstGuessTimer.value) return;
+  if (firstGuessTimer) return;
   if (currentGuess.value.includes(num)) return;
   currentGuess.value += num;
 }
 function delNumber() {
-  if (firstGuessTimer.value) return;
+  if (firstGuessTimer) return;
   if (currentGuess.value.length === 0) return;
   currentGuess.value = currentGuess.value.slice(0, -1);
 }
