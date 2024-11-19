@@ -124,7 +124,7 @@ function initWithFirstGuess(num) {
   }, firstGuessDuration);
 }
 function addListener() {
-  document.body.addEventListener('keyup', e => {
+  window.addEventListener('keyup', e => {
     const num = e.key;
     if (num === 'Enter') return guessOnce();
     if (num === 'Backspace') return delNumber();
@@ -275,8 +275,8 @@ function guessOnce() {
       border-radius: 6px;
       cursor: pointer;
       &:disabled {
-        background: rgba(0, 0, 0, 0.3);
-        color: #aaa;
+        background: rgba(30, 30, 30, 0.5);
+        color: #ccc;
       }
       &.opt-button {
         flex-grow: 1;
